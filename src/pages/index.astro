@@ -1,0 +1,30 @@
+---
+import { db, Finances } from 'astro:db'
+import Main from "../layouts/Main.astro"
+import IncomeExpense from "../components/IncomeExpense.tsx"
+import TransactionForm from "../components/TransactionForm.tsx"
+import TransactionHistory from "../components/TransactionHistory.tsx"
+
+let f = await db.select().from(Finances)
+---
+
+<Main classList="relative bg-slate-50">
+	<div>
+		<div class="font-semibold">
+			EXPENSE TRACKER
+		</div>
+		<div>
+			<h3>your balance</h3>
+			<h3>$ 8764.32</h3>
+		</div>
+		<div>
+			<IncomeExpense />
+		</div>
+		<div>
+			<TransactionForm client:load />
+		</div>
+		<div>
+			<TransactionHistory fdata={f} client:load/>
+		</div>
+	</div>
+</Main>
